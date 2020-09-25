@@ -12,7 +12,7 @@
 
         // This is how big our visualization will be. This sets the size.
         var visualizationWidth = 1280;
-        var visualizationHeight = 800;
+        var visualizationHeight = 600;
 
         //Make an SVG Container. We are appending an <svg> object to the <body></body> object on the page.
         var svgContainer = d3.select("body").append("svg")
@@ -94,12 +94,12 @@
 
         // Choosing a random height for the "fish"
         function getRandomHeight() {
-            return Math.floor(Math.random() * 100) + 1;
+            return Math.floor(Math.random() * 75) + 25;
         }
 
         // Choosing a random speed for the "fish" animation
         function getRandomSpeed() {
-            return Math.floor(Math.random() * 50000) + 10000;
+            return Math.floor(Math.random() * 60000) + 10000;
         }
 
         // Choosing a random y-coordinate (vertical) position for the "fish"
@@ -109,7 +109,7 @@
 
         // This is the delay for when the animation of the "fish" should start
         function getRandomDelay() {
-            return Math.floor(Math.random() * 20000) + 1000;
+            return Math.floor(Math.random() * 3000) + 500;
         }
 
         // Grass x-coordinate (horizontal)
@@ -137,7 +137,7 @@
         }
 
         // Finally, let's make our fish!
-        var randomNumberOfFishPairs = Math.floor(Math.random() * 15) + 10;
+        var randomNumberOfFishPairs = Math.floor(Math.random() * 6) + 3;
 
         for (var i = 0; i <= randomNumberOfFishPairs; i++) {
             makeRectangleMovingLeftToRight();
