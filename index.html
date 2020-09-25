@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    </head>
+
+    <body>
+    </body>
+
+    <script>
+        // For an introduction to d3 shapes: https://www.dashingd3js.com/svg-basic-shapes-and-d3js
+        // For an introduction to d3 animations: http://duspviz.mit.edu/d3-workshop/transitions-animation/
+
+        // This is how big our visualization will be. This sets the size.
+        var visualizationWidth = 1280;
+        var visualizationHeight = 800;
+
+        //Make an SVG Container. We are appending an <svg> object to the <body></body> object on the page.
+        var svgContainer = d3.select("body").append("svg")
+            .attr("width", visualizationWidth)
+            .attr("height", visualizationHeight);
+        
+        // This is our water
+        svgContainer.append("rect")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("fill", "#73bef8");
+        
+        // This is the green bottom, which will then have grass over it
+        var grassBaseHeight = 25;
+        svgContainer.append("rect")
+            .attr("width", "100%")
+            .attr("height", grassBaseHeight)
+            .attr("y", visualizationHeight - grassBaseHeight)
+            .attr("fill", "#4f9f8b");
+
+        // Adding a rectangle to the screen, one that moves from the left to the right.
+        function makeRectangleMovingLeftToRight() {
+            var rectangleWidth = getRandomWidth();
+            var randomYStart = getRandomYStart();
+            var randomHeight = getRandomHeight();
+            var randomColor = getRandomColor();
+            var randomDelay = getRandomDelay();
+            var randomSpeed = getRandomSpeed();
+
+            // Get the SVG container and append to it a rectangle.
+            var rectangle = svgContainer.append("rect")
+                .attr("x", -rectangleWidth) // x is the x coordinate on the screen. Doing -rectangleWidth will put it totally off the screen on the left side.
+                .attr("y", randomYStart) // y is the y coordinate on the screen.
+                .attr("fill", "#" + randomColor)
+                .attr("width", rectangleWidth)
+                .attr("height", randomHeight);
+            rectangle
+                .transition()
+                .attr("x", visualizationWidth) // We are saying to change the rectangle's x coordinate to the width of our visualization, moving it off the screen.
+                .delay(randomDelay)
+                .duration(randomSpeed);
+        }
+
+        function makeRectangleMovingRightToLeft() {
+            var rectangleWidth = getRandomWidth();
+            var randomYStart = getRandomYStart();
+            var randomHeight = getRandomHeight();
+            var randomColor = getRandomColor();
+            var randomDelay = getRandomDelay();
+            var randomSpeed = getRandomSpeed();
+            
+            var rectangle = svgContainer.append("rect")                                                                                                                          
+                .attr("x", visualizationWidth)
+                .attr("y", randomYStart)
+                .attr("fill", "#" + randomColor)
+                .attr("width", rectangleWidth)
+                .attr("height", randomHeight);
+            rectangle
+                .transition()
+                .attr("x", -rectangleWidth)
+                .delay(randomDelay)
+                .duration(randomSpeed);
+        }
+
+        // Source: https://css-tricks.com/snippets/javascript/random-hex-color/
+        function getRandomColor() {
+            return Math.floor(Math.random()*16777215).toString(16);
+        }
+
+        // Math.random() returns a random number from [0-1).
+        // [] means inclusive, and () means exclusive, so [0,1) means "from zero to one, inclusive of zero and exclusive of one."
+        // Now when we add in the floor via Math.floor(Math.random()), this returns a rounded-down (to a whole number) random number from [0-1). Most likely you're just gonna keep getting zero.
+        // If we then do Math.floor(Math.random() * 300)), we get a random number from [0-300).
+        // Finally, doing +100 means our number will be between [100 and 400).
+        // For more info about generating random numbers in JavaScript: https://www.w3schools.com/jsref/jsref_random.asp
+        function getRandomWidth() {
+            return Math.floor(Math.random() * 300) + 100;
+        }
+
+        // Choosing a random height for the "fish"
+        function getRandomHeight() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+
+        // Choosing a random speed for the "fish" animation
+        function getRandomSpeed() {
+            return Math.floor(Math.random() * 50000) + 10000;
+        }
+
+        // Choosing a random y-coordinate (vertical) position for the "fish"
+        function getRandomYStart() {
+            return Math.floor(Math.random() * visualizationHeight) + 1;
+        }
+
+        // This is the delay for when the animation of the "fish" should start
+        function getRandomDelay() {
+            return Math.floor(Math.random() * 20000) + 1000;
+        }
+
+        // Grass x-coordinate (horizontal)
+        function getRandomGrassXCoord() {
+            return Math.floor(Math.random() * visualizationWidth) + 1;
+        }
+        
+        // We will call this a few times to make different blades of grass.
+        function makeBladeOfGrass() {
+            var randomGrassWidth = Math.floor(Math.random() * 8) + 3;
+            var randomGrassHeight = Math.floor(Math.random() * 110) + 25;
+            var randomGreenNumber = Math.floor(Math.random() * 90)  + 100;
+            var randomGreenRGBValue = d3.rgb(0, randomGreenNumber, 0);
+            svgContainer.append("rect")
+                .attr("width", randomGrassWidth)
+                .attr("height", randomGrassHeight)                                                                                                                          
+                .attr("x", getRandomGrassXCoord())
+                .attr("y", visualizationHeight - randomGrassHeight)
+                .attr("fill", randomGreenRGBValue);
+        }
+
+        // Let's add some grass to the screen
+        for (var i = 0; i <= 200; i++) {
+            makeBladeOfGrass();
+        }
+
+        // Finally, let's make our fish!
+        var randomNumberOfFishPairs = Math.floor(Math.random() * 15) + 10;
+
+        for (var i = 0; i <= randomNumberOfFishPairs; i++) {
+            makeRectangleMovingLeftToRight();
+            makeRectangleMovingRightToLeft();
+        }
+    </script>
+</html>
