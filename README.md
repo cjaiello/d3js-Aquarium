@@ -1,6 +1,8 @@
 # d3js-Aquarium
 By Christina
 
+Randomly-generated (size, speed, color, placement) "fish" and randomly-generated (size, color, placement) "grass" in an "aquarium."
+
 ![Aquarium](https://raw.githubusercontent.com/cjaiello/d3js-Aquarium/master/aquarium.gif)
 
 ## Technologies Used
