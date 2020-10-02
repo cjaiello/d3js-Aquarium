@@ -85,11 +85,12 @@
                 .attr("cx", randomXStart)
                 .attr("cy", visualizationHeight + randomRadius)
                 .attr("r", randomRadius)
-                .attr("fill", "#c7e5fc");
+                .attr("fill", "#a0d2f9")
+                .style("opacity", 0.5);
             circle
                 .transition()
                 .attr("cy", 0 - randomRadius)
-                .delay(getRandomDelay() * 1.25)
+                .delay(getRandomDelay() * 2)
                 .duration(getRandomSpeed() * 0.5);
         }
 
@@ -152,17 +153,17 @@
             makeBladeOfGrass();
         }
 
-        // Throw in some bubbles
-        for (var i = 0; i <= 25; i++) {
-            makeBubble();
-        }
-
         // Finally, let's make our fish!
         var randomNumberOfFishPairs = Math.floor(Math.random() * 6) + 3;
 
         for (var i = 0; i <= randomNumberOfFishPairs; i++) {
             makeRectangleMovingLeftToRight();
             makeRectangleMovingRightToLeft();
+        }
+
+        // Throw in some bubbles
+        for (var i = 0; i <= 25; i++) {
+            makeBubble();
         }
     </script>
 </html>
