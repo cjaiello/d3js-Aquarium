@@ -83,14 +83,14 @@
             var circle = svgContainer
                 .append("circle")
                 .attr("cx", randomXStart)
-                .attr("cy", visualizationHeight)
+                .attr("cy", visualizationHeight + randomRadius)
                 .attr("r", randomRadius)
-                .attr("fill", "#" + randomColor);
-            rectangle
+                .attr("fill", "#c7e5fc");
+            circle
                 .transition()
-                .attr("x", 0)
-                .delay(getRandomDelay())
-                .duration(getRandomSpeed());
+                .attr("cy", 0 - randomRadius)
+                .delay(getRandomDelay() * 1.25)
+                .duration(getRandomSpeed() * 0.5);
         }
 
         // Source: https://css-tricks.com/snippets/javascript/random-hex-color/
@@ -152,7 +152,8 @@
             makeBladeOfGrass();
         }
 
-        for (var i = 0; i <= 50; i++) {
+        // Throw in some bubbles
+        for (var i = 0; i <= 25; i++) {
             makeBubble();
         }
 
